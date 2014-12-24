@@ -32,12 +32,12 @@ class WorkerActor extends Actor with ActorLogging with Stash {
     case Greet2 =>
       println(Greet2)
       sender() ! Greet1
-    case x =>
-      log.error("Message will be stashed: " + x)
-      stash()
     case Done =>
       context.become(starterReceive)
       unstashAll()
+    case x =>
+      log.error("Message will be stashed: " + x)
+      stash()
   }
 }
 
@@ -55,6 +55,5 @@ object Worker {
   case object Greet2
 
   case object Done
-
 
 }
